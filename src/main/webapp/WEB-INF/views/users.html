@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang = "ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список юзеров</title>
+  <style>
+    h1 {font-size: 50px}
+    TABLE {
+      font-size: 30px;
+    }
+    .simpleButton {
+      font: bold 40px Arial;
+      horiz-align: center;
+      color: blue;
+    }
+    .userButton {
+      font: bold 20px Arial;
+      text-decoration-color: blue;
+    }
+    .del{
+      font: bold 20px Arial;
+      color: hotpink;
+    }
+  </style>
+</head>
+<body>
+<h1 align="center">Список юзеров</h1>
+<div>
+  <table border = "1" cellpadding="20px" align="center" width="100">
+    <tr>
+      <th>Имя</th>
+      <th>Год рождения</th>
+      <th>email</th>
+      <th>Страна</th>
+      <th>Город</th>
+      <th th:width="300"></th>
+    </tr>>
+    <tr th:each = "unit : ${userListForYou}">
+      <td th:utext="${unit.getName()}">name</td>>
+      <td th:text="${unit.getBirthYear()}"> getBirthYear </td>>
+      <td th:text="${unit.getEmail()}"> email </td>>
+      <td th:text="${unit.getCountry()}">country</td>>
+      <td th:text="${unit.getCity()}"> city</td>>
+      <td>
+        <button class="userButton"><a th:href="@{/users/edit/id{id}(id=${unit.getId()})}">Изменить</a></button>
+        <form th:method="POST" th:action="@{/users/delete/id{id}(id=${unit.getId()})}">
+          <button class="del">Удалить</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
+
+<input type = "button" class="simpleButton" value = "Добавить нового пользователя"
+       onclick="window.location.href = '/users/new'"/>
+</body>
+</html>
