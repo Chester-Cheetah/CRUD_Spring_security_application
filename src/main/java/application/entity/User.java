@@ -1,23 +1,32 @@
 package application.entity;
 
+import org.hibernate.annotations.Cascade;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table (name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column
     private int id;
 
-    @Column
-    private String name;
+    @Column (length = 50, nullable = false, unique = true)
+    private String username;
 
-    @Column (name = "birth_year")
-    private int birthYear;
+    @Column (length = 50, nullable = false)
+    private String password;
 
-    @Column
+    @Column (length = 50, nullable = false, unique = true)
     private String email;
 
     @Column
@@ -26,12 +35,16 @@ public class User {
     @Column
     private String city;
 
+    @ManyToMany (fetch = FetchType.EAGER)
+    @JoinTable (name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new LinkedHashSet<>();
+
 
     public User() {}
 
-    public User(String name, int birthYear, String email, String country, String city) {
-        this.name = name;
-        this.birthYear = birthYear;
+    public User(String username, String password, String email, String country, String city) {
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.country = country;
         this.city = city;
@@ -41,12 +54,39 @@ public class User {
         return id;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    public int getBirthYear() {
-        return birthYear;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {
@@ -61,16 +101,20 @@ public class User {
         return city;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
-    public void setBirthYear(int birthYear) {
-        this.birthYear = birthYear;
+    public void setPassword(String birthYear) {
+        this.password = birthYear;
     }
 
     public void setEmail(String email) {
@@ -85,8 +129,12 @@ public class User {
         this.city = city;
     }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s, год рождения %d, email %s, %s, %s", name, birthYear, email, country, city);
+        return String.format("%s, пароль %s, email %s, %s, %s", username, password, email, country, city);
     }
 }

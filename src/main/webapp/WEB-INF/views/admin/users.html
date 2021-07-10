@@ -22,6 +22,9 @@
       font: bold 20px Arial;
       color: hotpink;
     }
+    .href1{
+      font-size: 50px;
+    }
   </style>
 </head>
 <body>
@@ -30,21 +33,23 @@
   <table border = "1" cellpadding="20px" align="center" width="100">
     <tr>
       <th>Имя</th>
-      <th>Год рождения</th>
+      <th>Пароль</th>
       <th>email</th>
       <th>Страна</th>
       <th>Город</th>
+      <th>Роли</th>
       <th th:width="300"></th>
     </tr>>
     <tr th:each = "unit : ${userListForYou}">
-      <td th:utext="${unit.getName()}">name</td>>
-      <td th:text="${unit.getBirthYear()}"> getBirthYear </td>>
-      <td th:text="${unit.getEmail()}"> email </td>>
-      <td th:text="${unit.getCountry()}">country</td>>
-      <td th:text="${unit.getCity()}"> city</td>>
+      <td><a th:href="@{/admin/users/id{id}(id=${unit.getId()})}" th:utext="${unit.username}">username</a></td>>
+      <td th:text="${unit.password}">password</td>>
+      <td th:text="${unit.email}"> email </td>>
+      <td th:text="${unit.country}">country</td>>
+      <td th:text="${unit.city}"> city</td>>
+      <td th:text="${unit.roles}">roles</td>
       <td>
-        <button class="userButton"><a th:href="@{/users/edit/id{id}(id=${unit.getId()})}">Изменить</a></button>
-        <form th:method="POST" th:action="@{/users/delete/id{id}(id=${unit.getId()})}">
+        <button class="userButton"><a th:href="@{/admin/edit/id{id}(id=${unit.getId()})}">Изменить</a></button>
+        <form th:method="POST" th:action="@{/admin/delete/id{id}(id=${unit.getId()})}">
           <button class="del">Удалить</button>
         </form>
       </td>
@@ -54,6 +59,15 @@
 <br>
 
 <input type = "button" class="simpleButton" value = "Добавить нового пользователя"
-       onclick="window.location.href = '/users/new'"/>
+       onclick="window.location.href = '/admin/new'"/>
+<br><br><br>
+<button><a href="/admin" class="href1">На главную</a></p></button>
+
+<br>
+
+<form th:action="@{/logout}" method="POST">
+  <button style="height: 50px; width: 650px; font-size: 40px; color: red" type="submit">Выход</button>
+</form>
+
 </body>
 </html>

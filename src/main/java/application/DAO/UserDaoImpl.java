@@ -1,5 +1,6 @@
 package application.DAO;
 
+import application.entity.Role;
 import application.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -19,13 +20,22 @@ public class UserDaoImpl implements UserDAO {
         return manager.createQuery("select u from User u", User.class).getResultList();
     }
 
+
     @Override
     public void save(User user) {
         manager.persist(user);
     }
 
+
     @Override
-    public User getUser(String email) {
+    public User getUserByName(String username){
+        TypedQuery<User> query = manager.createQuery("select u from User u where u.username = :username", User.class);
+        query.setParameter("username", username);
+        return query.getResultList().stream().findFirst().orElse(null);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
         TypedQuery<User> query = manager.createQuery("select u from User u where u.email = :email", User.class);
         query.setParameter("email", email);
         return query.getResultList().stream().findAny().orElse(null);

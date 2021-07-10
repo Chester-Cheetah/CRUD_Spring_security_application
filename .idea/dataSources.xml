@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="crud_database@localhost" uuid="9579f784-a718-4013-b230-a75f705d7f20">
+    <data-source source="LOCAL" name="MySQL - alien_star_system_users@localhost" uuid="c2ab9728-aca3-4bb7-998a-ec69dc3c54f6">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/crud_database</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/alien_star_system_users</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

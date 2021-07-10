@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    .introduction-message{
+        font-size: 30px;
+    }
+    A:link {
+        font-size: 50px;
+    }
+    A:visited{
+        font-size: 50px;
+    }
+</style>
+<body>
+<div class="introduction-message">
+    <th:block th:each="msg : ${messages}">
+        <h1 th:text="${msg}"></h1>
+    </th:block>
+</div>
+<br>
+<br>
+<br>
+<p><a href="/admin/users">Получить список. Жми сюда!</a></p>
+<br>
+<a href="/user">Узнать о себе</a>
+
+<br>
+
+<form th:action="@{/logout}" method="POST">
+    <button style="height: 50px; width: 650px; font-size: 40px; color: red" type="submit">Выход</button>
+</form>
+
+</body>
+</html>

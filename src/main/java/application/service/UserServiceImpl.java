@@ -1,46 +1,50 @@
 package application.service;
 
+import application.DAO.RoleDaoImpl;
 import application.DAO.UserDAO;
+import application.entity.Role;
 import application.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDAO dao;
+    private final UserDAO dao;
+
+    public UserServiceImpl(UserDAO dao) {
+        this.dao = dao;
+    }
 
     @Override
-    @Transactional(readOnly = true)
     public List<User> getUserList() {
         return dao.getUserList();
     }
 
     @Override
-    @Transactional
     public boolean save(User user) {
-        if (dao.getUser(user.getEmail()) == null) {
+        if ((dao.getUserByEmail(user.getEmail()) == null) && (dao.getUserByName(user.getUsername()) == null)) {
             dao.save(user);
             return true;
         }
         return false;
     }
 
+
     @Override
-    @Transactional
     public User getUserByID(int id) {
         return dao.getUserByID(id);
     }
 
     @Override
-    @Transactional
     public boolean update(User user) {
-        User existedUser = dao.getUser(user.getEmail());
-        if (existedUser == null || existedUser.getId() == user.getId()) {
+        User anotherUserWithTheSameEmail = dao.getUserByEmail(user.getEmail());
+        User anotherUserWithTheSameUsername = dao.getUserByName(user.getUsername());
+        if ((anotherUserWithTheSameEmail == null || anotherUserWithTheSameEmail.getId() == user.getId())
+                && (anotherUserWithTheSameUsername == null || anotherUserWithTheSameUsername.getId() == user.getId())) {
             dao.update(user);
             return true;
         }
@@ -48,8 +52,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public void delete(int id) {
         dao.delete(id);
+    }
+
+
+
+    @Override
+    public User getUserByName (String name) {
+        return dao.getUserByName(name);
     }
 }
