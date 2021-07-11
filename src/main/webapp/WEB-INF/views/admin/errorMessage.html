@@ -13,23 +13,17 @@
     A:visited{
         font-size: 50px;
     }
+    .navigation-button {
+        width: 650px;
+        text-align: left;
+    }
   </style>
 </head>
 <body>
 <h1 align="center">Пользователь с таким именем или email существует</h1>
 <br>
-<a href="/admin">На страницу админа</a>
-<br>
 
-<button><a href="/admin/users">К списку юзеров</a></button>
-<br><br>
-<button><a href="/user">На персональную страницу</a></button>
-
-<br>
-
-<form th:action="@{/logout}" method="POST">
-    <button style="height: 50px; width: 650px; font-size: 40px; color: red" type="submit">Выход</button>
-</form>
+<div th:insert="navigation :: navigation"></div>
 
 </body>
 </html>

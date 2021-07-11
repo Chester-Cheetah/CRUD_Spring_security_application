@@ -19,6 +19,10 @@
     A:visited{
         font-size: 50px;
     }
+    .navigation-button {
+        width: 650px;
+        text-align: left;
+    }
 </style>
 <body>
 
@@ -55,15 +59,8 @@
             <td th:text="${profile.roles}">roles</td>
         </tr>
     </table>
-
-    <div sec:authorize="hasRole('ADMIN')">
-        <button><a href="/admin/users">К списку юзеров</a></button>
-    </div>
-
-    <br>
-    <form th:action="@{/logout}" method="POST">
-        <button style="height: 50px; width: 650px; font-size: 40px; color: red" type="submit">Выход</button>
-    </form>
+<br>
+    <div th:insert="navigation :: navigation"></div>
 
 </div>
 

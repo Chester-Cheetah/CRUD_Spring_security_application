@@ -35,6 +35,10 @@
         A:visited{
             font-size: 50px;
         }
+        .navigation-button {
+            width: 650px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -74,13 +78,9 @@
     </div>
     <input type="submit" value="Зарегистрировать" class="signup"/>
 </form>
-<br><br>
-<p><button><a href="/admin/users">К списку юзеров</a></button></p>
+<br><br><br><br>
 
-<br>
-<form th:action="@{/logout}" method="POST">
-    <button style="height: 50px; width: 650px; font-size: 40px; color: red" type="submit">Выход</button>
-</form>
+<div th:insert="navigation :: navigation"></div>
 
 </body>
 </html>

@@ -15,6 +15,10 @@
     A:visited{
         font-size: 50px;
     }
+    .navigation-button {
+        width: 650px;
+        text-align: left;
+    }
 </style>
 <body>
 <div class="introduction-message">
@@ -23,17 +27,8 @@
     </th:block>
 </div>
 <br>
-<br>
-<br>
-<p><a href="/admin/users">Получить список. Жми сюда!</a></p>
-<br>
-<a href="/user">Узнать о себе</a>
 
-<br>
-
-<form th:action="@{/logout}" method="POST">
-    <button style="height: 50px; width: 650px; font-size: 40px; color: red" type="submit">Выход</button>
-</form>
+<div th:insert="navigation :: navigation"></div>
 
 </body>
 </html>
