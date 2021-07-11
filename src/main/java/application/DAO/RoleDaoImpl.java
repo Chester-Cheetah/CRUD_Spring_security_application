@@ -30,8 +30,4 @@ public class RoleDaoImpl implements RoleDAO {
         String role = roleName.startsWith("ROLE_") ? roleName : "ROLE_" + roleName;
         return manager.find(Role.class, role);
     }
-
-
-
-
 }
